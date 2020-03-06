@@ -31,7 +31,7 @@ class ClientService {
 
         return response;
     }
-    // Método para cargar saldo wallet del Cliente
+    // Método para crear pago cliente
     async payBuyClient( datosClienteCargarWallet ) {
         let response;
         const giveTokenBuy = await this.walletService.generateToken();
@@ -43,7 +43,12 @@ class ClientService {
         }
         if (giveIdSession) {
             const creacionPago = await this.mongoDB.create('pagos',datosPago);
-            if (creacionPago['response'] == true) response = creacionPago;
+            if (creacionPago['response'] == true){
+                response = {
+                    token: giveTokenBuy,
+                    sesion: giveIdSession
+                }
+            } 
         } 
 
         return response;
@@ -53,6 +58,20 @@ class ClientService {
         const searchSaldoClienteResponse = await this.walletService.loadSaldo(datosCliente);
         
         return searchSaldoClienteResponse;
+    }
+
+    // Método para confirmar Pago cliente
+    async confirmPayClient(datosCliente) {
+        const validacionDatos = await this.walletService.validateDates(datosCliente);
+        const datosClientePay = {
+            ...validacionDatos['dates'],
+            documento: datosCliente['documento']
+        }
+        if (validacionDatos['response'] == true) {
+            await this.walletService.payBuy(datosClientePay);
+            return {response: 'Se confirmo pago correctamente'}
+        }
+        return {response: 'Hubo un error al confirmar el pago'};
     }
 }
 

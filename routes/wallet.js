@@ -54,7 +54,7 @@ function WalletApi( app ) {
             if (loadWalletClient){
                 res.status(200).json({
                     data: loadWalletClient,
-                    message: 'Cliente Creado'
+                    message: 'Recarga Exitosa'
                 });
             }
             
@@ -96,7 +96,7 @@ function WalletApi( app ) {
         }
     });
 
-    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD RECARGA DE SALDO */
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD CREAR PAGO */
     router.post('/pagar/:documento', async function( req, res, next ) {
         // Obtención parámetro url
         const { documento } = req.params;
@@ -113,7 +113,7 @@ function WalletApi( app ) {
             if (loadWalletClient){
                 res.status(200).json({
                     data: loadWalletClient,
-                    message: 'Cliente Creado'
+                    message: 'Se creo la solicitud de pago'
                 });
             }
             
@@ -123,7 +123,7 @@ function WalletApi( app ) {
         }
     });
 
-    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD RECARGA DE SALDO */
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD CONFIRMAR PAGO */
     router.patch('/confirmarPay/:documento', async function( req, res, next ) {
         // Obtención parámetro url
         const { documento } = req.params;
@@ -131,6 +131,7 @@ function WalletApi( app ) {
         const { idSesion, token } = req.body;
         // Datos a enviar al servicio ( Se envia el valor a actualizar como un objeto de objetos donde el indice del valor a cambiar debe ser el mismo campo en bd)
         const clientDates = {
+            documento: documento,
             idSesion: idSesion,
             token: token
         }
@@ -140,7 +141,7 @@ function WalletApi( app ) {
             if (loadWalletClient){
                 res.status(200).json({
                     data: loadWalletClient,
-                    message: 'Cliente Creado'
+                    message: 'Pago Confirmado'
                 });
             }
             
