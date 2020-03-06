@@ -96,6 +96,59 @@ function WalletApi( app ) {
         }
     });
 
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD RECARGA DE SALDO */
+    router.post('/pagar/:documento', async function( req, res, next ) {
+        // Obtención parámetro url
+        const { documento } = req.params;
+        // Obtención paramentro Cuerpo peticion
+        const { valorCompra } = req.body;
+        // Datos a enviar al servicio ( Se envia el valor a actualizar como un objeto de objetos donde el indice del valor a cambiar debe ser el mismo campo en bd)
+        const clientDates = {
+            documento: documento,
+            valorCompra: valorCompra
+        }
+        try {
+            // Envió de parámetros a capa de servicios.
+            const loadWalletClient = await clientService.payBuyClient(clientDates);
+            if (loadWalletClient){
+                res.status(200).json({
+                    data: loadWalletClient,
+                    message: 'Cliente Creado'
+                });
+            }
+            
+        } catch (error) {
+            // Control errores.
+            next(error);
+        }
+    });
+
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD RECARGA DE SALDO */
+    router.patch('/confirmarPay/:documento', async function( req, res, next ) {
+        // Obtención parámetro url
+        const { documento } = req.params;
+        // Obtención paramentro Cuerpo peticion
+        const { idSesion, token } = req.body;
+        // Datos a enviar al servicio ( Se envia el valor a actualizar como un objeto de objetos donde el indice del valor a cambiar debe ser el mismo campo en bd)
+        const clientDates = {
+            idSesion: idSesion,
+            token: token
+        }
+        try {
+            // Envió de parámetros a capa de servicios.
+            const loadWalletClient = await clientService.confirmPayClient(clientDates);
+            if (loadWalletClient){
+                res.status(200).json({
+                    data: loadWalletClient,
+                    message: 'Cliente Creado'
+                });
+            }
+            
+        } catch (error) {
+            // Control errores.
+            next(error);
+        }
+    });
 }
 
 module.exports = WalletApi;

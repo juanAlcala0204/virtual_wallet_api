@@ -31,6 +31,23 @@ class ClientService {
 
         return response;
     }
+    // Método para cargar saldo wallet del Cliente
+    async payBuyClient( datosClienteCargarWallet ) {
+        let response;
+        const giveTokenBuy = await this.walletService.generateToken();
+        const giveIdSession = await this.walletService.idSession( datosClienteCargarWallet );
+        const datosPago = {
+            ...datosClienteCargarWallet,
+            token: giveTokenBuy,
+            sesion: giveIdSession
+        }
+        if (giveIdSession) {
+            const creacionPago = await this.mongoDB.create('pagos',datosPago);
+            if (creacionPago['response'] == true) response = creacionPago;
+        } 
+
+        return response;
+    }
     // Método para consultar saldo Wallet Cliente
     async searchSaldoCliente(datosCliente) {
         const searchSaldoClienteResponse = await this.walletService.loadSaldo(datosCliente);

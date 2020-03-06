@@ -32,6 +32,16 @@ class WalletService {
         const response = (documento == celular) ? await this.mongoDB.getSaldo(this.collection, documento) : {response : false, msg:'Debe coincidir el documento y el celular'} 
         return response;        
     }
+    
+    async generateToken() {
+        const randomToken =  Math.random().toString(36).substring(7);
+        return randomToken;
+    }
+
+    async idSession({ documento }) {
+        const idSession =  await this.mongoDB.generateSession('clientes', documento);
+        return idSession;
+    }
 }
 
 
