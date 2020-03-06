@@ -37,6 +37,33 @@ function WalletApi( app ) {
         }
     });
 
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD RECARGA DE SALGO */
+    router.patch('/:documento', async function( req, res, next ) {
+        // Obtención parámetro url
+        const { documento } = req.params;
+        // Obtención paramentro Cuerpo peticion
+        const { valor } = req.body;
+        // Datos a enviar al servicio ( Se envia el valor a actualizar como un objeto de objetos donde el indice del valor a cambiar debe ser el mismo campo en bd)
+        const clientDates = {
+            documento: documento,
+            valor: {valor: valor}
+        }
+        try {
+            // Envió de parámetros a capa de servicios.
+            const loadWalletClient = await clientService.loadSaldoClient(clientDates);
+            if (loadWalletClient){
+                res.status(200).json({
+                    data: loadWalletClient,
+                    message: 'Cliente Creado'
+                });
+            }
+            
+        } catch (error) {
+            // Control errores.
+            next(error);
+        }
+    });
+
 }
 
 module.exports = WalletApi;
