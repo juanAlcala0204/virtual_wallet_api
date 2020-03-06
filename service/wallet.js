@@ -27,6 +27,11 @@ class WalletService {
         const loadWalletResponse = await this.mongoDB.update(this.collection, documento, valor);
         return loadWalletResponse['response'];
     }
+    // Método para consultar Saldo Wallet
+    async loadSaldo({ documento, celular }) {
+        const response = (documento == celular) ? await this.mongoDB.getSaldo(this.collection, documento) : {response : false, msg:'Debe coincidir el documento y el celular'} 
+        return response;        
+    }
 }
 
 
