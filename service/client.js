@@ -24,13 +24,18 @@ class ClientService {
         
         return response;
     }
-
+    // Método para cargar saldo wallet del Cliente
     async loadSaldoClient( datosClienteCargarWallet ) {
-        console.log(datosClienteCargarWallet);
         const loadSaldoResponse = await this.walletService.loadWallet(datosClienteCargarWallet);
         const response =  (loadSaldoResponse) ? true : false; 
 
         return response;
+    }
+    // Método para consultar saldo Wallet Cliente
+    async searchSaldoCliente(datosCliente) {
+        const searchSaldoClienteResponse = await this.walletService.loadSaldo(datosCliente);
+        
+        return searchSaldoClienteResponse;
     }
 }
 

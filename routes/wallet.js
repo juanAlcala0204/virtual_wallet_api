@@ -37,7 +37,7 @@ function WalletApi( app ) {
         }
     });
 
-    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD RECARGA DE SALGO */
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD RECARGA DE SALDO */
     router.patch('/:documento', async function( req, res, next ) {
         // Obtención parámetro url
         const { documento } = req.params;
@@ -55,6 +55,38 @@ function WalletApi( app ) {
                 res.status(200).json({
                     data: loadWalletClient,
                     message: 'Cliente Creado'
+                });
+            }
+            
+        } catch (error) {
+            // Control errores.
+            next(error);
+        }
+    });
+
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD CONSULTA SALDO */
+    router.get('/:documento', async function( req, res, next ) {
+        // Obtención parámetro url
+        const { documento } = req.params;
+        // Obtención paramentro Cuerpo peticion
+        const { celular } = req.body;
+        // Datos a enviar al servicio,
+        /**
+         * Se adjunta en nuestro objeto a enviar al servicio, el documento y celular, porque se dbee validar que sean iguales
+         */
+        const clientDates = {
+            documento: documento,
+            celular: celular
+        }
+        try {
+            // Envió de parámetros a capa de servicios.
+            const loadWalletClient = await clientService.searchSaldoCliente(clientDates);
+            if (loadWalletClient){
+                res.status(200).json({
+                    data: {
+                        saldoBilletera:loadWalletClient['clienteInfo']['valor']
+                    },
+                    message: 'Información saldo'
                 });
             }
             
