@@ -22,6 +22,11 @@ class WalletService {
         const createWallet = await this.mongoDB.create(this.collection, datosWallet);
         return createWallet['response'];
     }
+    // Método para Recargar saldo
+    async loadWallet({ documento, valor } = {}) {
+        const loadWalletResponse = await this.mongoDB.update(this.collection, documento, valor);
+        return loadWalletResponse['response'];
+    }
 }
 
 

@@ -25,6 +25,13 @@ class ClientService {
         return response;
     }
 
+    async loadSaldoClient( datosClienteCargarWallet ) {
+        console.log(datosClienteCargarWallet);
+        const loadSaldoResponse = await this.walletService.loadWallet(datosClienteCargarWallet);
+        const response =  (loadSaldoResponse) ? true : false; 
+
+        return response;
+    }
 }
 
 
