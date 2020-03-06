@@ -1,16 +1,21 @@
-const EXPRESS = require('express');
-const APP = EXPRESS();
+/**
+ * @fileoverview Archivo contenido de lógica principal de enrutamiento negocio.
+ * @author Juan David Alcala Sanchez
+ */
 
-const { CONFIG } = require('./config/index');
+/** DECLARACIÓN CONSTANTES DE DEPENDENCIAS */
+const express = require('express');
+const app = express();
 
-APP.get('/', function(req, res){
-    res.send("Hello world");
-});
+const { config } = require('./config/index');
+const walletApi = require('./routes/wallet');
 
-APP.get('/json', function(req, res){
-    res.send({ hello: 'world' });
-});
+// Middleware para obtención de datos formato json.
+app.use(express.json());
+// Uso de función principal de enrutamiento API
+walletApi(app);
 
-APP.listen(CONFIG.port, function() {
-    console.log(`Listening http://localhost:${CONFIG.port}`);
+// Listening servidor node
+app.listen(config.port, function() {
+    console.log(`Listening http://localhost:${config.port}`);
 });

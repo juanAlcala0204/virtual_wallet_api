@@ -1,1 +1,0 @@
-const { walletMock } = require('../utils/mocks/wallet');
