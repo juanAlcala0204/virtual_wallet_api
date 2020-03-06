@@ -24,11 +24,13 @@ function WalletApi( app ) {
         try {
             // Envió de parámetros a capa de servicios.
             const createdClient = await clientService.createClient(client);
+            if (createdClient){
+                res.status(201).json({
+                    data: createdClient,
+                    message: 'Cliente Creado'
+                });
+            }
             
-            res.status(201).json({
-                data: createdClient,
-                message: 'Cliente Creado'
-            });
         } catch (error) {
             // Control errores.
             next(error);
