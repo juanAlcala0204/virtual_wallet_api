@@ -6,29 +6,42 @@
 /** DECLARACIÓN CONSTANTES DE DEPENDENCIAS */
 const express = require('express');
 const ClientService = require('../service/client');
+const IncidentService = require('../service/incident');
+const RoutesViews = require('./routes_views');
+
 
 /**
  *  FUNCIONALIDAD PRINCIPAL DE ENRUTAMIENTO API Y CONSUMO DE CAPA DE SERVICIOS
  * @param app // Recibe la app de express como parámetro
  */
 function WalletApi( app ) {
+    
+    // Declaración router.
     const router = express.Router();
+    
     app.use('/api/wallet', router);
-    // Declaración Servicio cliente
+
+    /** DECLARACIÓN USO SERVICIOS */
     const clientService = new ClientService(); 
+    const incidentService = new IncidentService(); 
+
+    /** OBTENCIÓN DECLARACIÓN DE RUTAS VIEWS */
+    RoutesViews(router);
     
     /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD CREACIÓN CLIENTE */
-    router.post('/', async function( req, res, next ) {
+    router.post('/newIncident', async function( req, res, next ) {
         // Obtención paramentros
-        const { body: client } = req;
+        const { body: incident } = req;
         try {
             // Envió de parámetros a capa de servicios.
-            const createdClient = await clientService.createClient(client);
-            if (createdClient){
+            const createdIncident = await incidentService.createIncident( incident );
+            if (createdIncident){
                 res.status(201).json({
-                    data: createdClient,
-                    message: 'Cliente Creado'
+                    data: createdIncident,
+                    message: 'Incidente Creado'
                 });
+            } else {
+                throw "Fallo al consumir servicio creacion Incidente"
             }
             
         } catch (error) {
@@ -65,7 +78,21 @@ function WalletApi( app ) {
     });
 
     /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD CONSULTA SALDO */
-    router.get('/:documento', async function( req, res, next ) {
+    router.get('/clientes/', async function( req, res, next ) {
+        try {
+            // Envió de parámetros a capa de servicios.
+            const loadInfoClient = await clientService.loadClientes();
+            if (loadInfoClient){
+                res.status(200).json( loadInfoClient );
+            }
+            
+        } catch (error) {
+            // Control errores.
+            next(error);
+        }
+    });
+    /** CREACIÓN ENRUTAMIENTO FUNCIONALIDAD CONSULTA SALDO */
+    router.get('/cliente/:documento', async function( req, res, next ) {
         // Obtención parámetro url
         const { documento } = req.params;
         // Obtención paramentro Cuerpo peticion
@@ -80,13 +107,10 @@ function WalletApi( app ) {
         }
         try {
             // Envió de parámetros a capa de servicios.
-            const loadWalletClient = await clientService.searchSaldoCliente(clientDates);
-            if (loadWalletClient){
+            const loadInfoClient = await clientService.loadClientes(clientDates);
+            if (loadInfoClient){
                 res.status(200).json({
-                    data: {
-                        saldoBilletera:loadWalletClient['clienteInfo']['valor']
-                    },
-                    message: 'Información saldo'
+                    data: loadInfoClient
                 });
             }
             
@@ -150,6 +174,7 @@ function WalletApi( app ) {
             next(error);
         }
     });
+    return router;
 }
 
 module.exports = WalletApi;

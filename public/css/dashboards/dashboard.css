@@ -1,0 +1,73 @@
+.menu-navbar {
+    background-color:#629632 !important;
+    color: #ffffff !important;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.nav-item :hover {
+    background-color: #ffffff !important;
+    color: black !important;
+}
+.nav-treeview :hover {
+    background-color: #629632 !important;
+    color:#ffffff !important;
+}
+[class*='sidebar-dark-'] .nav-sidebar > .nav-item > .nav-treeview {
+    background-color: #4A7023 !important;
+    color:#ffffff !important;
+}
+
+[class*='sidebar-dark-'] .nav-sidebar > .nav-item > .nav-treeview :hover{
+    background-color: #ffffff !important;
+    color:#000 !important;
+}
+
+
+/* 
+========================
+      BUTTON THREE
+========================
+*/
+.btn-three {
+	color: #FFF;
+	transition: all 0.5s;
+    position: relative;
+}
+.btn-three::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: #629632;
+	transition: all 0.3s;
+}
+.btn-three:hover::before {
+	opacity: 0 ;
+	transform: scale(0.5,0.5);
+}
+.btn-three::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	opacity: 0;
+	transition: all 0.3s;
+	border: 1px solid rgba(255,255,255,0.5);
+	transform: scale(1.2,1.2);
+}
+.btn-three:hover::after {
+	opacity: 1;
+	transform: scale(1,1);
+}
+
+.botonPersonalizado {
+	animation-duration: 3s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+}

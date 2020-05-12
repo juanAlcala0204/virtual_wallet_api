@@ -54,12 +54,22 @@ class ClientService {
         return response;
     }
     // Método para consultar saldo Wallet Cliente
-    async searchSaldoCliente(datosCliente) {
+    async searchInfoCliente(datosCliente) {
         const searchSaldoClienteResponse = await this.walletService.loadSaldo(datosCliente);
         
         return searchSaldoClienteResponse;
     }
+    // Método para consultar Saldo Wallet
+    async loadSaldo( documento ) {
+        const response = (documento) ? await this.mongoDB.getInfoClient(this.collection, documento) : {response : false} 
+        return response;        
+    }
 
+    async loadClientes() {
+        const response =  await this.mongoDB.getClients(this.collection);
+        if (response.hasOwnProperty( 'error' )) throw "fallo al traer info BD" 
+        return response;        
+    }
     // Método para confirmar Pago cliente
     async confirmPayClient(datosCliente) {
         const validacionDatos = await this.walletService.validateDates(datosCliente);

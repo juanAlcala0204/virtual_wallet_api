@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registro cliente</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- *****************************************DESIGN STYLE****************************** -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../app/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="../../app/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../app/css/adminlte/adminlte.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- *****************************************CALL TO SCRIPTS*********************************************-->
+
+    <!-- jQuery -->
+    <script src="../../app/plugins/jquery/jquery.min.js" defer></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../app/plugins/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+    <!-- AdminLTE App -->
+    <script src="../../app/js/adminlte/adminlte.min.js" defer></script>
+</head>
+<!-- ***************************************BODY********************************************************* -->
+
+<body class="hold-transition register-page" style="background-image:url(../../app/img/adminlte/wave.png);">
+    <!----.row (Registration Form)-->
+    <div class="row">
+        <!--.card card-success-->
+        <div class="card card-success">
+            <!--.card-header-->
+            <div class="card-header">
+                <h3 class="card-title"> Registrarse</h3>
+            </div>
+            <!--/.card-header-->
+
+            <!--.card-body-->
+            <div class="card-body">
+                <!-- .row (entry of the identification and  first name  fields)-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="text" class="form-control" placeholder="Identificación">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas ion-calculator"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="text" class="form-control" placeholder="Nombre">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row (entry of the identification and  first name  fields)-->
+
+                <!-- .row (entry of the last name and address fields)-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="text" class="form-control" placeholder="Apellidos">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas ion-ios-paper"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="text" class="form-control" placeholder="Dirección">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-compass"></span>
+                                </div>
+                             </div>
+                         </div>  
+                    </div>
+                </div>
+                 <!-- /.row (entry of the last name and address  fields)-->
+
+                  <!-- .row (entry of the mail and landline fields)-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="email" class="form-control" placeholder="Correo">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="text" class="form-control" placeholder="Telefono">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-phone"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.row (entry of the mail and landline fields)-->
+
+                <!--.row (entry of the password and phone fields)-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="password" class="form-control" placeholder="Contraseña">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas ion-lock-combination"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="text" class="form-control" placeholder="Celular">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas ion-android-phone-portrait"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                 <!--/.row (entry of the password  and phone fields)-->
+
+                 <!--.row (entering the password confirmation field and gender selection list)-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group mb-5">
+                            <input type="password" class="form-control" placeholder="Repetir contraseña">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas  ion-lock-combination"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control custom-select">
+                            <option selected disabled>Genero</option>
+                            <option>Hombre</option>
+                            <option>Mujer</option>
+                            <option>Indefinido</option>
+                          </select>
+                        </div> 
+                    </div>
+                    
+                </div>
+                 <!--/.row (entering the password fields and  gender selection list)-->
+
+                <!--.row (gender selection list )-->
+                <!--/.row (gender selection list )-->
+
+                <!--.row (checklist of terms of use )-->
+                <div class="row">
+                    <div class="col-10">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="agreeTerms" name="terms" value="agree" >
+                            <label for="agreeTerms">
+                               Yo acepto los  <a href="#" style="color:#4A7023 ">Terms</a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--/.row (checklist of terms of use )-->
+
+                <!--.row (boton de registro)-->
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success btn-block">Registrarme</button>
+                    </div>
+                </div>
+                 <!--/.row (boton de registro)-->
+
+
+                <a href="../../layouts/pages/login.html" class="text-center" style="color:#4A7023 ">¿Ya tienes cuenta?</a>
+            </div>
+        </div>
+
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+    <!-- /.register-box -->
+</body>
+
+</html>

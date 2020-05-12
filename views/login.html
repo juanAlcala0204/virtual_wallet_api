@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<!--******************************************Design style***************************************** -->
+	 <!-- Login dashboards -->
+	<link rel="stylesheet"  href="../../app/css/dashboards/login.css">
+
+	 <!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+	<!--******************************************Call to scripts ***************************************  -->
+	<!------------------------------global js ------------------------------------>
+	<!-- <script type="text/javascript" src="../../app/js/core/global.js"></script> -->
+	<!-- fontawesome -->   
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<!---------------------------------------services-------------------------------->
+	<script type="text/javascript" src="../../app/js/core/api/servicios.js" defer></script>
+	<!--------------------------------Data------------------------------------------>
+	<script type="text/javascript" src="../../app/js/core/api/datos.js" defer></script>
+	<!----------------------------------inicio sesion js ------------------------->
+	<script type="text/javascript" src="../../app/js/core/api/inicio_sesion.js" defer></script>
+	<!-- Login core --> 
+	<script type="text/javascript" src="../../app/js/core/event/login.js" defer></script>
+</head>
+
+<!--********************************************BODY*-*************************************************-->
+<body>
+	<img class="wave" src="../../app/img/adminlte/wave.png">
+	<!--.container  --> 
+	<div class="container">
+		<div class="img">
+		 <!--<img src="img/bg.svg">  -->
+		</div>
+		 <!-- .login-content-->
+		<div class="login-content">
+			<!-- form --> 
+			<form>
+				<img src="../../app/img/adminlte/client.png">  
+				<h2 class="title">BIENVENIDOS</h2>
+				<!--.input-div one  (mail field entry)--> 
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Correo</h5>
+           		   		<input type="email"  id="email"class="input" required>
+           		   </div>	
+				</div> 
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+					</div>
+           		   <div class="div">
+           		    	<h5>Contraseña</h5>
+           		    	<input type="password" id="password" class="input" required>
+            	   </div>
+				</div>
+				 <!-- /.input-div pass  (password field entry)-->   
+            	<a href="#">Forgot Password?</a>
+				<button type="button" id= "login" class="btn" >login</button>
+				<a href="../pages/registro_cliente.html">Registrate</a>
+				<label style="color:red; display: none;" id ="incorrectoLogin" >usuario o contraseña incorrecta</label>
+			</form>
+			<!-- /form  --> 
+		</div>
+		 <!-- /.login content -->
+	</div>
+	<!--.container --> 
+  
+</body>
+</html>    
