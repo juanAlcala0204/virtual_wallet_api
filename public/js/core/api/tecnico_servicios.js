@@ -1,23 +1,20 @@
-class Address {
-
+class Technical {
     constructor() {
     }
-
-    async AddAddress( data ) {
+    async SearchTechnicalAll() {
         try {
             let response,
                 responseData;
 
             const SETTINGS = {
-                method: 'POST',
-                body: JSON.stringify(data),
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 mode: 'cors',
             };
 
-            response = await fetch('http://localhost:3004/Residencia', SETTINGS);
+            response = await fetch('http://localhost:3004/Tecnico', SETTINGS);
             responseData = await response.json();
             return responseData;
 
@@ -26,6 +23,8 @@ class Address {
         }
     }
 
+
+
 }
 
-export default Address;
+export default Technical;

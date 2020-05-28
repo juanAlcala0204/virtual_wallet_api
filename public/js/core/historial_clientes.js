@@ -1,8 +1,15 @@
-const BUTTONSEARCH = document.querySelector('#search');
-const INPUTNULL = document.getElementById('inputSearch');
+/** Se importan utilidades para lógica para historial cliente  */
+import {the_Function,MessageError } from './global.js';
 
+/**Declaración objetos HTML de uso Historial */
+const buttonSearch = document.querySelector('#search');
+const inputSearch = document.getElementById('inputSearch');
+
+/**
+ * Variable la cual crea la tabla de historial Cliente
+ */
 const tableCliente = new Tabulator("#tabHistorialIncidencias", {
-    ajaxURL: "http://localhost:3000/Usuarios?idTipoUsuario=Cliente",
+    ajaxURL: "http://localhost:3004/Clientes",
     layout: "fitColumns",
     pagination: "local",
     paginationSize: 10,
@@ -18,31 +25,21 @@ const tableCliente = new Tabulator("#tabHistorialIncidencias", {
         {
             title: "Dirección", field: "idUsuario", formatter: the_Function, align: "center"
             , cellClick: function (e, cell) {
-                url = new URL('http://localhost:3000/Residencia');
+                const url = new URL('http://localhost:3004/Residencia');
                 url.search = new URLSearchParams({
                     idUsuario: cell.getValue()
                 })
-                const tablaResidencia = new Tabulator("#tabResidencia", {
-                    ajaxURL: url,
-                    layout: "fitColumns",
-                    paginationSize: 10,
-                    movableColumns: true,
-                    resizableRows: true,
-                    columns: [
-                        { title: "ID Residencia", field: "idResidenciaUsuario" },
-                        { title: "Dirección", field: "direccion" },
-                        { title: "Ciudad", field: "ciudad" },
-                        { title: "Pais", field: "pais" },
-                        { title: "Departamento", field: "departamento" }
-                    ],
-                });
+                createTableAddressClient( url )
             }
 
         }
     ],
 });
 
-
+/**
+ * Función en la cual busca en tabla por idUsuario y se trae a la tabla existente
+ * @param {string} search 
+ */
 const updateFilter = (search) => {
     try {
         let filterVal = 'idUsuario';
@@ -53,18 +50,45 @@ const updateFilter = (search) => {
         if (filterVal) {
             tableCliente.setFilter(filter, typeVal, search);
         }
-    }catch(error){
+    } catch (error) {
         MessageError();
+        console.error("ERROR", error);
     }
 }
 
+/**
+ * Función que crea la tabla de direcciones de cliente seleccionado en la tabla
+ * @param {const} URL 
+ */
+const createTableAddressClient = ( URL ) => {
+    const tablaResidencia = new Tabulator("#tabResidencia", {
+        ajaxURL: URL,
+        layout: "50px",
+        paginationSize: 10,
+        movableColumns: true,
+        resizableRows: true,
+        columns: [
+            { title: "ID Residencia", field: "idResidenciaUsuario" },
+            { title: "Dirección", field: "direccion" },
+            { title: "Ciudad", field: "ciudad" },
+            { title: "Pais", field: "pais" },
+            { title: "Departamento", field: "departamento" }
+        ],
+    });
+}
 
-BUTTONSEARCH.addEventListener('click', () => {
+/**
+ * CAPTURA DE EVNTO CLICK PARA CAPTURA DE CLIENTE BUSCADO EN LA TABLA 
+ */
+buttonSearch.addEventListener('click', () => {
     const SEARCHINPUT = document.getElementById('inputSearch').value;
     updateFilter(SEARCHINPUT);
 });
 
-INPUTNULL.addEventListener('change', () => {
+/**
+ * CAPTURA DE EVENTO DE CASAMBIO DE ESTADO DEL BUSCADOR PARA RESTAURAR TABLAS 
+ */
+inputSearch.addEventListener('change', () => {
     if (document.getElementById('inputSearch').value == '') {
         tableCliente.clearFilter();
     }

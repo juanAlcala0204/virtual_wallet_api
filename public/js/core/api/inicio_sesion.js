@@ -1,37 +1,37 @@
-class session extends Data {
+class Session {
     constructor() {
-        super();
     }
 
-    async IniciarSesion() {
-        let url;
-        let response;
-        let data;
-        let required;
-        required = this.DataLogin();
-        url = new URL('http://localhost:3000/UsuariosApp')
-        url.search = new URLSearchParams({
-            nameUser: required.nameUser,
-            password: required.password
-        })
-        const SETTINGS = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors'
-        };
+    async login({user , password}) {
         try {
+            let response,
+                responseData,
+                url;
+
+            url = new URL('http://localhost:3004/Usuarios')
+            url.search = new URLSearchParams({
+                nameUser: user,
+                password: password
+            })
+
+            const SETTINGS = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+            };
+
             response = await fetch(url, SETTINGS);
-            data = await response.json();
-            localStorage.setItem('UserKey', JSON.stringify(data));
-            return data;
+            responseData = await response.json();
+            localStorage.setItem('UserKey', JSON.stringify(responseData));
+            return responseData;
+
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-
-
     }
 
    
 }
+export default Session;
