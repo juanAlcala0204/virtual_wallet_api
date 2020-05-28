@@ -3,7 +3,7 @@ var the_Function = function (cell, formatterParams, onRendered) { //plain text v
     return '<button class="btn btn-success btn-sm text-right" data-toggle="modal" data-target="#modal-address"><i class="fa fa-location-arrow" style="margin-right: 5px;" ></i>Seleccionar</button>';
 };
 
-const LOGOUT = document.querySelector('#logout');
+const logout = document.querySelector('#logout');
 
 function MessageAdd(page) {
      toastr.success(`Se agrego el ${page} correctamente `);
@@ -74,22 +74,6 @@ function functionCreateActionButton(cell, formatterParams, onRendered) { //plain
      }
  };
 
- function UserKey(){
-
-    const USER = JSON.parse(localStorage.getItem('UserKey'));
-    switch (USER[0].idTipoUsuario) {
-        case 'CallCenter':
-            $('#AsignacionIncidente').hide();
-            document.getElementById('AsignacionIncidente').style.display ='none';
-            break;
-        case 'TecnicoPresencial':
-            $('#AsignacionIncidente').show();
-             document.getElementById('AsignacionIncidente').style.display ='block';
-             break;
-        default:
-            console.log('QUE BOBADA');
-    }
- }
-
+ 
 
 export { the_Function, MessageAdd, MessageError, cleanFieldsClient, cleanFieldsIncidents, functionCreateActionButton };

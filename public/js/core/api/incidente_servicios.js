@@ -1,8 +1,8 @@
 class Incident {
-    constructor(){
+    constructor() {
     }
 
-    async AddIncident( data ){
+    async AddIncident(data) {
         try {
             let response,
                 responseData;
@@ -15,7 +15,7 @@ class Incident {
                 },
                 mode: 'cors',
             };
-            
+
             response = await fetch('http://localhost:3000/newIncident', SETTINGS);
             responseData = await response.json();
             return responseData;
@@ -24,48 +24,51 @@ class Incident {
             console.log(error);
         }
     }
-    
-    async SearchIncident(params) {
-        let url ;
-        let response;
-        let data;
-        url= new URL('http://localhost:3000/Incidentes')
-        url.search = new URLSearchParams({
-            idIncidencia: params
-        })
-        const SETTINGS = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors'
-        };
+
+    async SearchIncidentId( id ) {
         try {
+            let response,
+                responseData,
+                url;
+            url = new URL('http://localhost:3004/Incidentes')
+            url.search = new URLSearchParams({
+                idIncidencia: id 
+            })
+
+            const SETTINGS = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+            };
+
             response = await fetch(url, SETTINGS);
-            data = await response.json();
-            return data;
+            responseData = await response.json();
+            return responseData;
+
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
-    async EditIncident(incident,id){
-        let response;
-        let data;
-        const INCIDENTE = incident ;
-        const SETTINGS = {
-            method: 'PATCH',
-            body: JSON.stringify(INCIDENTE),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-        };
+    async EditIncident( data , id ) {
         try {
-            response = await fetch('http://localhost:3000/Incidentes'+'/'+id, SETTINGS);
-            data = await response.json()
-            return data;
+            let response,
+                responseData;
 
+            const SETTINGS = {
+                method: 'PATCH',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+            };
+
+            response = await fetch('http://localhost:3004/Incidentes'+'/'+id, SETTINGS);
+            responseData = await response.json();
+            return responseData;
 
         } catch (error) {
             console.log(error);

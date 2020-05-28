@@ -8,18 +8,8 @@
  
   <%- include('components/head_global.html') %>
   <!-- *********************************************** CALL TO SCRIPTS **************************************************** -->
-
-  <!---------------------JS Global------------------------->
-  <script src="/js/core/global.js" defer></script>
-  <!----------------Services--------------------------->
-  <script src="/js/core/api/servicios.js" defer></script>
-  <!----------------------Data---------------------------------->
-  <script src="/js/core/api/datos.js" defer></script>
-  <!------------------------Services-------------------------->
-  <script src="/js/core/api/incidente_servicios.js" defer></script>
-  <script src="/js/core/api/cliente_servicios.js" defer></script>
   <!--------------------------Historial Incidencia-------------------->
-  <script src="/js/core/historial_incidencia.js" defer></script>
+  <script  type = "module" src="/js/core/historial_incidencia.js" defer></script>
 
 
   <!-- *********************************************** FINISH CALL TO SCRIPTS **************************************************** -->
@@ -444,16 +434,6 @@
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="/__/firebase/7.9.1/firebase-app.js"></script>
-
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="/__/firebase/7.9.1/firebase-analytics.js"></script>
-
-  <!-- Initialize Firebase -->
-  <script src="/__/firebase/init.js"></script>
-
 </body>
 
 </html>

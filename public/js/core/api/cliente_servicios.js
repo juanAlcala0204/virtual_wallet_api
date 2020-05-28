@@ -1,80 +1,59 @@
 
-class Client extends Data{
+class Client {
 
     constructor() {
-        super();
     }
 
-    async AddClients() {
-        let response;
-        let data;
-        const CLIENTE = this.DataClient();
-        const SETTINGS = {
-            method: 'POST',
-            body: JSON.stringify(CLIENTE),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors'
-        };
-
+    async AddClients( data ) {
         try {
-            response = await fetch('http://localhost:3000/Usuarios', SETTINGS);
-            data = await response.json();
-            return data;
+            let response,
+                responseData;
+
+            const SETTINGS = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+            };
+
+            response = await fetch('http://localhost:3004/Clientes', SETTINGS);
+            responseData = await response.json();
+            return responseData;
+
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
-    async SearchClient(param,TipoUsuario) {
-        let url ;
-        let response;
-        let data;
-        url= new URL('http://localhost:3000/Usuarios')
-        url.search = new URLSearchParams({
-            idUsuario: param,
-            idTipoUsuario:TipoUsuario
-        })
-        const SETTINGS = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors'
-        };
+    async SearchClientId( param ) {
         try {
+            let response,
+                responseData,
+                url;
+
+            url = new URL('http://localhost:3004/Clientes')
+            url.search = new URLSearchParams({
+                idUsuario: param,
+            })
+            const SETTINGS = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+            };
+
             response = await fetch(url, SETTINGS);
-            data = await response.json();
-            return data;
-        } catch (error) {
-            console.log(error)
-        }
-    }
+            responseData = await response.json();
+            return responseData;
 
-    async SearchClientType(TipoUsuario) {
-        let url ;
-        let response;
-        let data;
-        url= new URL('http://localhost:3000/Usuarios')
-        url.search = new URLSearchParams({
-            idTipoUsuario:TipoUsuario
-        })
-        const SETTINGS = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors'
-        };
-        try {
-            response = await fetch(url, SETTINGS);
-            data = await response.json();
-            return data;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
+   
 
 }
-
+export default Client;
