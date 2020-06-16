@@ -35,6 +35,10 @@ function RoutesViews( router ) {
     router.get('/login', async function( req, res, next ) {
         res.render('login.html');
     });
+
+    router.get('/estadisticas', async function( req, res, next ) {
+        res.render('estadisticas.html');
+    });
    
 }
 

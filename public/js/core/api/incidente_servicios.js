@@ -16,7 +16,7 @@ class Incident {
                 mode: 'cors',
             };
 
-            response = await fetch('http://localhost:3000/newIncident', SETTINGS);
+            response = await fetch('http://localhost:3004/Incidentes', SETTINGS);
             responseData = await response.json();
             return responseData;
 

@@ -3,8 +3,6 @@ var the_Function = function (cell, formatterParams, onRendered) { //plain text v
     return '<button class="btn btn-success btn-sm text-right" data-toggle="modal" data-target="#modal-address"><i class="fa fa-location-arrow" style="margin-right: 5px;" ></i>Seleccionar</button>';
 };
 
-const logout = document.querySelector('#logout');
-
 function MessageAdd(page) {
      toastr.success(`Se agrego el ${page} correctamente `);
 }
