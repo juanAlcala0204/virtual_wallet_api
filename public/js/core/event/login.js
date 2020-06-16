@@ -85,4 +85,4 @@ buttonLogin.addEventListener('click', () => {
 	}
 	const user = login(paramUser);
 	userVerification(user);
-})
+});

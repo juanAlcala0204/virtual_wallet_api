@@ -6,7 +6,7 @@ import Session from './inicio_sesion.js'
 
 class Services {
     constructor(page) {
-
+        
         switch (page) {
             case 'client':
                 return new Client();

@@ -16,7 +16,7 @@ const addressButton = document.querySelector('#buttonAddress');
 const addIncidentServie = async ({ service, data }) => {
     try {
         const responseAdd = await service.AddIncident(data);
-        if (responseAdd.data) {
+        if (responseAdd) {
             MessageAdd();
             cleanFieldsIncidents();
         } else {
@@ -97,15 +97,26 @@ const dataIncident = () => {
  * @param {let} technical / se espera recibir los datos de los tecnicos en prmesa   
  * @param {let} dropdownList  /  se espera recibir el objeto html de dropDownList
  */
- const fillTechnicalData = ( technical, dropdownList ) => {
+ const fillTechnicalData = ( technical ) => {
+    let dropdownList, 
+        option,
+        txt;
+
+    dropdownList = document.getElementById('idTecnico');
+    const itemDropDownList  = document.createElement('select');
+    itemDropDownList.id = 'idTecnico';
+    itemDropDownList.className = 'form-control custom-select';
+    itemDropDownList.innerHTML ='<option selected>Seleccione el tecnico presencial </option>';
+
     technical.then(data => {
         for (let i in data) {
-            let option,
-                txt;
-            option = document.createElement("option"),txt = document.createTextNode(`${data[i].nombreUsuario} ${data[i].apellidoUsuario}`)
+           
+            option = document.createElement("option");
+            txt = document.createTextNode(`${data[i].nombreUsuario} ${data[i].apellidoUsuario}`);
             option.appendChild(txt);
-            option.setAttribute('value', data[i].idUsuario)
-            dropdownList.insertBefore(option, dropdownList.lastChild);
+            option.setAttribute('value', data[i].idUsuario);
+            itemDropDownList.insertBefore(option, itemDropDownList.lastChild);
+            dropdownListTecnnical.replaceChild(itemDropDownList, dropdownList);
         }
     });
  }
@@ -113,9 +124,7 @@ const dataIncident = () => {
 /**Creacion de DropDownList en el cual se encuentra los tecnico presenciales  */
 const createDropDownListTechnical = () => {
     try {
-        let checkbox,
-             dropdownList;
-        dropdownList = document.getElementById('idTecnico');
+        let checkbox;
         checkbox = document.forms['access']['dropdownList'].checked;
 
         if (!checkbox) {
@@ -124,10 +133,9 @@ const createDropDownListTechnical = () => {
             document.getElementById('showHideTechnical').style.display = 'block';
             const paramsClient = {
                 service: new Services('technical')
-       
             }
             const technical = searchTechnicalAllService(paramsClient);
-            fillTechnicalData( technical , dropdownList )
+            fillTechnicalData( technical  );
         }
     } catch (error) {
         MessageError();

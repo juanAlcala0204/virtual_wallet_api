@@ -4,9 +4,11 @@ class Session {
 
     async login({user , password}) {
         try {
+            
             let response,
                 responseData,
-                url;
+                url,
+                userTechnical;
 
             url = new URL('http://localhost:3004/Usuarios')
             url.search = new URLSearchParams({
@@ -24,7 +26,13 @@ class Session {
 
             response = await fetch(url, SETTINGS);
             responseData = await response.json();
-            localStorage.setItem('UserKey', JSON.stringify(responseData));
+            for (let i in responseData) {
+                 userTechnical = {
+                    idTipoUsuario:responseData[i].idTipoUsuario,
+                    idUsuario:responseData[i].idUsuario
+                }
+            }
+            sessionStorage.setItem('UserKey', JSON.stringify(userTechnical));
             return responseData;
 
         } catch (error) {

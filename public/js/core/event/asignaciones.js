@@ -4,11 +4,11 @@ import { functionCreateActionButton, MessageError,  MessageAdd} from '../global.
 /**Declaración objetos HTML de uso Historial */
 const buttonSearchIncident = document.querySelector('#search');
 const inputNullSearch = document.getElementById('inputSearch');
-const user = JSON.parse(localStorage.getItem('UserKey'));
+const user = JSON.parse(sessionStorage.getItem('UserKey'));
 let url;
 url = new URL('http://localhost:3004/Incidentes')
 url.search = new URLSearchParams({
-    tecnico: user[0].idUsuario
+    tecnico: user.idUsuario
 })
 
 /**
