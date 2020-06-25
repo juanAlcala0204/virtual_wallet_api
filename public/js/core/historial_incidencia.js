@@ -1,32 +1,35 @@
 /** Se importan utilidades para lógica Historial Incidente. */
 import Services from './api/servicios.js';
-import {functionCreateActionButton,MessageError } from './global.js';
+import TableTabulator from './class/config_tabulator.js';
+import { functionCreateActionButton, MessageError } from './global.js';
+
+
+const user = JSON.parse(sessionStorage.getItem('UserKey'));
+const url = new URL('http://localhost:3004/Incidentes');
+url.search = new URLSearchParams({
+    escalar: user.idTipoUsuario,
+    estadoIncidente: 'Finalizado'
+});
+const columns = [
+    { title: 'Id', field: 'idIncidencia' },
+    { title: "Fecha de captura", field: "fechaCapturaIncidente" },
+    { title: "Definicion", field: "definicionProblema", },
+    { title: "Cliente", field: "idUsuario" },
+    { title: "Estado", field: "estadoIncidente" },
+    {
+        title: "Info", field: "idIncidencia", width: 100, formatter: functionCreateActionButton, align: "center", formatterParams: {
+            type: 'Info',
+        }, cellClick: function (e, cell) {
+            CreateInfo(cell.getValue());
+        },
+    },
+];
+const objTable = new TableTabulator(url, columns, "#tabHistorialIncidencias");
 /**
  * variable constate en la cual es creada la tabla donde se encuentran todos losIncidentes con tabulator
  */
-const tabCliente = new Tabulator("#tabHistorialIncidencias", {
-    ajaxURL: "http://localhost:3004/Incidentes",
-    layout: "fitColumns",
-    height: false,
-    pagination: "local",
-    paginationSize: 10,
-    movableColumns: true,
-    resizableRows: true,
-    columns: [
-        { title: "Fecha de captura", field: "fechaCapturaIncidente" },
-        { title: "Definicion", field: "definicionProblema", },
-        { title: "Identificion del problema ", field: "identificacionProblema" },
-        { title: "Cliente", field: "idUsuario" },
-        { title: "Estado", field: "estadoIncidente" },
-        {
-            title: "Info", field: "idIncidencia", width: 100, formatter: functionCreateActionButton, align: "center", formatterParams: {
-                type: 'Info',
-            }, cellClick: function (e, cell) {
-                CreateInfo(cell.getValue());
-            },
-        },
-    ],
-});
+
+const tableIncidents = objTable.createTable();
 /**
  * Función para usar servicio de buscar Cliente
  * @param {object} object / se espera atributos de service y data 
@@ -35,7 +38,7 @@ const tabCliente = new Tabulator("#tabHistorialIncidencias", {
 const searchClientIdService = async ({ service, param }) => {
     try {
 
-        const responseSearch = await service.SearchClientId( param );
+        const responseSearch = await service.SearchClientId(param);
         if (responseSearch) {
             return responseSearch;
         } else {
@@ -57,7 +60,7 @@ const searchClientIdService = async ({ service, param }) => {
 const searchIncidentIdService = async ({ service, param }) => {
     try {
 
-        const responseSearch = await service.SearchIncidentId( param );
+        const responseSearch = await service.SearchIncidentId(param);
         if (responseSearch) {
             return responseSearch;
         } else {
@@ -75,18 +78,18 @@ const searchIncidentIdService = async ({ service, param }) => {
  * Función para llenar  campos de Informacion del cliente 
  * @params {Promesa} client /Recibe una promesa la cual se resuelve dentro de función
  */
-const fillClientData = ( client ) =>{
+const fillClientData = (client) => {
     client.then(data => {
-        for (let i in data){
-        document.getElementById('infoTypeId').value = data[i].tipoId;
-         document.getElementById('infoName').value = data[i].nombreUsuario;
-         document.getElementById('infoLastName').value = data[i].apellidoUsuario;
-         document.getElementById('infoPhone').value = data[i].celularUsuario;
-         document.getElementById('infoLandline').value = data[i].telefonoUsuario;
-         document.getElementById('infoEmail').value = data[i].emailUsuario;
+        for (let i in data) {
+            document.getElementById('infoTypeId').value = data[i].tipoId;
+            document.getElementById('infoName').value = data[i].nombreUsuario;
+            document.getElementById('infoLastName').value = data[i].apellidoUsuario;
+            document.getElementById('infoPhone').value = data[i].celularUsuario;
+            document.getElementById('infoLandline').value = data[i].telefonoUsuario;
+            document.getElementById('infoEmail').value = data[i].emailUsuario;
         }
-     
-     }) 
+
+    })
 
 }
 
@@ -95,16 +98,16 @@ const fillClientData = ( client ) =>{
  * Función para llenar  campos de Información del Incidente
  * @params {Promesa} incident /Recibe una promesa la cual se resuelve dentro de función
  */
-const fillIncidentData = ( incident ) =>{
+const fillIncidentData = (incident) => {
     incident.then(data => {
-        for (let i in data){
-        document.getElementById('infoId').value = data[i].idUsuario;
-        document.getElementById('infoState').value = data[i].estadoIncidente;
-        document.getElementById('infoDefinition').value = data[i].definicionProblema;
-        document.getElementById('infoTypeIncident').value = data[i].tipoIncidente;
-        document.getElementById('infoIdentification').value = data[i].identificacionProblema;
-        document.getElementById('infoDate').value = data[i].fechaCapturaIncidente;
-        document.getElementById('infoAddress').value = data[i].address;
+        for (let i in data) {
+            document.getElementById('infoId').value = data[i].idUsuario;
+            document.getElementById('infoState').value = data[i].estadoIncidente;
+            document.getElementById('infoDefinition').value = data[i].definicionProblema;
+            document.getElementById('infoTypeIncident').value = data[i].tipoIncidente;
+            document.getElementById('infoIdentification').value = data[i].identificacionProblema;
+            document.getElementById('infoDate').value = data[i].fechaCapturaIncidente;
+            document.getElementById('infoAddress').value = data[i].address;
         }
     });
 }
@@ -113,9 +116,9 @@ const fillIncidentData = ( incident ) =>{
  * Funcion la cual crea los componenestes del apartado de informacion de el Incidente y de que cliente es y su Incidente
  * @param {string} id /se espera un Id del Incidente para poder traer todos los datos 
  */
-const CreateInfo = ( id ) => {
+const CreateInfo = (id) => {
     try {
-        
+        debugger;
         const paramsIncident = {
             service: new Services('incident'),
             param: id
@@ -124,13 +127,14 @@ const CreateInfo = ( id ) => {
         const incident = searchIncidentIdService(paramsIncident)
         fillIncidentData(incident);
 
-        const paramsClient = {
-            service: new Services('client'),
-            param: document.getElementById('infoId').value
-        }
-        const client = searchClientIdService(paramsClient);
-        fillClientData(client);
-
+        setTimeout(() => {
+            const paramsClient = {
+                service: new Services('client'),
+                param: document.getElementById('infoId').value
+            }
+            const client = searchClientIdService(paramsClient);
+            fillClientData(client);
+        }, 100);
 
 
     } catch (error) {

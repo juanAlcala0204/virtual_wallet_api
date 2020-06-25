@@ -24,8 +24,8 @@ function cleanFieldsIncidents() {
      document.getElementById('state').value = "Seleccionar Estado";
      document.getElementById('id').value = "";
      document.getElementById('indenceType').value = " Seleccionar tipo de incidente";
-     document.forms['access']['dropdownList'].checked = false;
-     document.getElementById('showHideTechnical').style.display = 'none';
+     $('#showHideTechnical').hide();
+     $('#showHideScaleTechnical').hide();
 }
 
 function cleanFieldsClient() {

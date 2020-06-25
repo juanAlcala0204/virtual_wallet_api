@@ -2,7 +2,8 @@ import Incident from './incidente_servicios.js';
 import Client from './cliente_servicios.js';
 import Technical from './tecnico_servicios.js';
 import Address from './residencia_servicio.js';
-import Session from './inicio_sesion.js'
+import Session from './inicio_sesion.js';
+import TypeTechnical from './tipoTecnico_servicios.js';
 
 class Services {
     constructor(page) {
@@ -18,6 +19,8 @@ class Services {
                 return new Session();
             case 'technical':
                 return new Technical();
+            case 'typeTechnical': 
+                return new TypeTechnical();
             default:
                 return null;
         }

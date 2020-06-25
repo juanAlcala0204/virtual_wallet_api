@@ -122,6 +122,7 @@ const logicInformeCasesFinishForMonth = ( data ) => {
     }
 }
 
+
 const logicInformes = async ( optionsExecute, data = false ) => {
     let url = false;
 

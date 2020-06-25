@@ -1,14 +1,25 @@
 
 /** Se importan utilidades para lógica registro incidencia. */
 import Services from '../api/servicios.js';
+import  TableTabulator from '../class/config_tabulator.js';
 import { MessageAdd, MessageError, cleanFieldsIncidents } from '../global.js';
 
 /** Declaración objetos HTML de uso incidencia. */
-const checkboxTechnical = document.querySelector('#dropdownList');
 const btnRegisterIncident = document.querySelector('#registrarIncidencia');
 const idClientChange = document.querySelector('#id');
-const addressButton = document.querySelector('#buttonAddress');
-
+const stateChange = document.querySelector('#state');
+const changeTechnical = document.querySelector('#technicalType');
+const columns = [
+    { title: "Id", field: "idUsuario" },
+    { title: "Nombre", field: "nombreUsuario" },
+    { title: "Apellidos", field: "apellidoUsuario" },
+    { title: "Correo", field: "emailUsuario" },
+    { title: "Telefono", field: "telefonoUsuario" },
+    { title: "Celular", field: "celularUsuario" },
+];
+const objTable = new TableTabulator("http://localhost:3004/Clientes",columns,"#tabCliente");
+/**creacion de tabla de clientes registrados*/
+const tableClients = objTable.createTable();
 /**
  * Función para usar servicio de agregación Incidencia
  * @param {object} object / se espera atributos de service y data 
@@ -36,7 +47,7 @@ const addIncidentServie = async ({ service, data }) => {
 const searchClientIdService = async ({ service, param }) => {
     try {
 
-        const responseSearch = await service.SearchClientId( param );
+        const responseSearch = await service.SearchClientId(param);
         if (responseSearch) {
             return responseSearch;
         } else {
@@ -54,9 +65,25 @@ const searchClientIdService = async ({ service, param }) => {
  * @param {object} object / se espera atributo de service
  * @returns {Promise} responseSearch /se espera una promesa con todos los datos encontrados
  */
-const searchTechnicalAllService = async ({ service }) => {
+const searchTechnicalPresentialService = async ({ service,params }) => {
     try {
-        const responseSearch = await service.SearchTechnicalAll();
+        const responseSearch = await service.SearchTechnicalGroup(params);
+        if (responseSearch) {
+            return responseSearch;
+        } else {
+            throw "Error al utilizar busqueda de Cliente";
+        }
+
+    } catch (error) {
+        console.error("Error : " + error);
+    }
+
+
+}
+
+const searchTypeTechnicalAllService = async ({ service }) => {
+    try {
+        const responseSearch = await service.SearchTypeTechnicalAll();
         if (responseSearch) {
             return responseSearch;
         } else {
@@ -75,68 +102,93 @@ const searchTechnicalAllService = async ({ service }) => {
  * @returns data - retornará los datos del usuario una vez válidados.
  */
 const dataIncident = () => {
+    let escalar,
+        tecnico  ;
+
+    if (document.getElementById('technicalType').value === "Seleccione area" ){
+        escalar = 'Call Center';
+        tecnico = 'trivial';
+    }else {
+        escalar = document.getElementById('technicalType').value
+        if ( document.getElementById('technicalType').value === 'Tecnico Presencial'){
+            tecnico = document.getElementById('idTecnico').value
+        }else {
+            tecnico = ''
+        }
+    }
     const data = {
         idIncidencia: parseInt((Math.random() * 1000), 10),
         fechaCapturaIncidente: document.getElementById('date').value,
         definicionProblema: document.getElementById('definitionProblem').value,
         identificacionProblema: document.getElementById('identificationProblem').value,
-        finalizacionIncidente: "0",
-        diasIncidente: "0",
         direccionCliente: document.getElementById('address').value,
         estadoIncidente: document.getElementById('state').value,
         idUsuario: document.getElementById('id').value,
         tipoIncidente: document.getElementById('indenceType').value,
-        tecnico: document.getElementById('idTecnico').value,
+        escalar: escalar,
+        tecnico: tecnico,
         address: document.getElementById('address').value
     }
     return data;
 }
 
+const fillTypeTechnicalData = (type) => {
+    let dropdownList,
+        option,
+        txt;
+    const dropdownListTypeTecnnical = document.getElementById('showHideScaleTechnical');
+    dropdownList = document.getElementById('technicalType');
+    type.then(data => {
+        for (let i in data) {
+
+            option = document.createElement("option");
+            txt = document.createTextNode(`${data[i].area}`);
+            option.appendChild(txt);
+            option.setAttribute('value', data[i].area);
+            dropdownList.insertBefore(option, dropdownList.lastChild);
+        }
+    });
+    
+
+}
 /**
  * Función para rellenar el dropdowlist de tecnicos presenciales 
  * @param {let} technical / se espera recibir los datos de los tecnicos en prmesa   
  * @param {let} dropdownList  /  se espera recibir el objeto html de dropDownList
  */
- const fillTechnicalData = ( technical ) => {
-    let dropdownList, 
+const fillTechnicalData = (technical) => {
+    let dropdownList,
         option,
         txt;
-
+    const dropdownListTechnical =document.getElementById('showHideTechnical');
     dropdownList = document.getElementById('idTecnico');
-    const itemDropDownList  = document.createElement('select');
+    const itemDropDownList = document.createElement('select');
     itemDropDownList.id = 'idTecnico';
     itemDropDownList.className = 'form-control custom-select';
-    itemDropDownList.innerHTML ='<option selected>Seleccione el tecnico presencial </option>';
+    itemDropDownList.innerHTML = '<option selected>Seleccione el tecnico presencial </option>';
 
     technical.then(data => {
         for (let i in data) {
-           
+
             option = document.createElement("option");
             txt = document.createTextNode(`${data[i].nombreUsuario} ${data[i].apellidoUsuario}`);
             option.appendChild(txt);
             option.setAttribute('value', data[i].idUsuario);
             itemDropDownList.insertBefore(option, itemDropDownList.lastChild);
-            dropdownListTecnnical.replaceChild(itemDropDownList, dropdownList);
+            dropdownListTechnical.replaceChild(itemDropDownList, dropdownList);
         }
     });
- }
- 
+}
+
 /**Creacion de DropDownList en el cual se encuentra los tecnico presenciales  */
 const createDropDownListTechnical = () => {
     try {
-        let checkbox;
-        checkbox = document.forms['access']['dropdownList'].checked;
-
-        if (!checkbox) {
-            document.getElementById('showHideTechnical').style.display = 'none';
-        } else {
-            document.getElementById('showHideTechnical').style.display = 'block';
-            const paramsClient = {
-                service: new Services('technical')
-            }
-            const technical = searchTechnicalAllService(paramsClient);
-            fillTechnicalData( technical  );
+        const paramsClient = {
+            service: new Services('technical'),
+            params:document.getElementById('technicalType').value
         }
+        const technical = searchTechnicalPresentialService(paramsClient);
+        fillTechnicalData(technical);
     } catch (error) {
         MessageError();
         console.log(error);
@@ -149,8 +201,8 @@ const createDropDownListTechnical = () => {
  * Función para integrar en los campos los datos del cliente encontrados
  * @param {object} client  
  */
-const fillClientData = ( client ) => {
-    client.then(data =>{
+const fillClientData = (client) => {
+    client.then(data => {
         for (let i in data) {
             document.getElementById('tipoId').value = data[i].tipoId;
             document.getElementById('name').value = data[i].nombreUsuario;
@@ -158,7 +210,7 @@ const fillClientData = ( client ) => {
             document.getElementById('email').value = data[i].emailUsuario;
             document.getElementById('phone').value = data[i].celularUsuario;
             document.getElementById('landline').value = data[i].telefonoUsuario;
-    
+
         }
     })
 
@@ -175,49 +227,7 @@ const cleanfieldsChangeClient = () => {
     document.getElementById('phone').value = "";
     document.getElementById('landline').value = "";
 }
-/**
- * Función para crear tabla con la direccion del cliente
- * @param {const} URL 
- */
-const createTableAddress = ( URL ) =>{
 
-    const tablaResidencia = new Tabulator("#tabAddress", {
-        ajaxURL: URL,
-        layout: "50px",
-        paginationSize: 10,
-        movableColumns: true,
-        resizableRows: true,
-        columns: [
-            { title: "ID Residencia", field: "idResidenciaUsuario" },
-            {
-                title: "Dirección", field: "direccion", cellClick: function (e, cell) {
-                    document.getElementById('address').value = cell.getValue()
-                }
-            },
-            { title: "Ciudad", field: "ciudad" },
-            { title: "Pais", field: "pais" },
-            { title: "Departamento", field: "departamento" }
-        ],
-        rowClick: function (e, row) {
-        }
-    });
-
-};
-
-/**creacion de tabla de clientes registrados*/
-const tableClient = new Tabulator("#tabCliente", {
-    ajaxURL: "http://localhost:3000/clientes/",
-    ajaxConfig: "get",
-    layout: "fitColumns",
-    height: "30%",
-    columns: [
-        { title: "Id", field: "documento" },
-        { title: "Nombre", field: "nombre" },
-        { title: "Apellidos", field: "_id" },
-        { title: "Celular", field: "celular" },
-        { title: "Correo", field: "email" },
-    ],
-});
 
 /** CAPTURA DE EVENTO CLICK SOBRE REGISTRO INCIDENTE */
 btnRegisterIncident.addEventListener('click', () => {
@@ -229,10 +239,6 @@ btnRegisterIncident.addEventListener('click', () => {
     addIncidentServie(paramsIncident);
 });
 
-/**CAPTURA DE EVENTO  CAMBIO DE ESTADO DE CHECKBOX  DE TECNICO PRESENCIAL */
-checkboxTechnical.addEventListener('change', () => {
-    createDropDownListTechnical();
-});
 
 /**CAPTURA DE EVENTO CAMBIO DE DOCUMENTO  PARA RELLENADO DE DATOS */
 idClientChange.addEventListener('change', () => {
@@ -255,13 +261,28 @@ idClientChange.addEventListener('change', () => {
     }
 });
 
-/**CAPTURA DE EVENTO CLICK PARA COLECCIONES DE DIRECCIONES DE CLIENTE */
-addressButton.addEventListener('click', () => {
-    const url = new URL('http://localhost:3004/Residencia');
-    url.search = new URLSearchParams({
-        idUsuario: document.getElementById('id').value
-    })
 
-    createTableAddress(url);
+stateChange.addEventListener('change', () => {
+    if (document.getElementById('state').value === "Escalar") {
+        $('#showHideScaleTechnical').show();
+        const paramsTypeTechnical = {
+            service: new Services('typeTechnical')
+        }
+        const typeTechnical = searchTypeTechnicalAllService(paramsTypeTechnical);
+        fillTypeTechnicalData(typeTechnical);
+
+    } else {
+        $('#showHideScaleTechnical').hide();
+    }
+
+});
+
+changeTechnical.addEventListener('change', () => {
+    if (document.getElementById('technicalType').value === 'Tecnico Presencial'){
+        $('#showHideTechnical').show();
+        createDropDownListTechnical();
+    }else{
+        $('#showHideTechnical').hide();
+    }
     
 });

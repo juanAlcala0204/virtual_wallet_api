@@ -221,8 +221,7 @@
                             <div class="form-group">
                               <label for="inputStatus">Estado</label>
                               <select class="form-control custom-select" id="editState">
-                                <option selected>Seleccionar Estado</option>
-                                <option>Recibido</option>
+                                <option selected>Recibido</option>
                                 <option>Escalar</option>
                                 <option>Finalizado</option>
                               </select>
@@ -254,6 +253,38 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="input-group mb-3" id='showHideScaleTechnical' style="display: none;">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Escalar A :</label>
+                              </div>
+                              <select class="form-control custom-select" id="technicalType">
+                                <option>Seleccione area</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="input-group mb-3" id='showHideTechnical' style="display: none;" >
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Tecnico :</label>
+                              </div>
+                              <select class="form-control custom-select" id="idTecnico">
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <form name="access">
+                                
+                                  <input type="checkbox" id="dropdownList"> ¿ Necesita volverlo a escalar?
+                               
+                              </form>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <!-- /.card-body -->
@@ -263,9 +294,9 @@
 
               </div>
               <div class="modal-footer justify-content-between bg-warning">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default toastrDefaultSuccess" data-dismiss="modal">Save
-                  changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default toastrDefaultSuccess" data-dismiss="modal">Guardar
+                  Cambios</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -403,8 +434,7 @@
                             <div class="form-group">
                               <label for="inputStatus">Estado</label>
                               <select class="form-control custom-select" disabled id="infoState">
-                                <option selected disabled>Seleccionar Estado</option>
-                                <option>Recibido</option>
+                                <option selected>Recibido</option>
                                 <option>Escalar</option>
                                 <option>Finalizado</option>
                               </select>
