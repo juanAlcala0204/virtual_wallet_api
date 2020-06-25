@@ -53,6 +53,37 @@ class Client {
             console.log(error);
         }
     }
+
+    async SearchClientAllCount( ) {
+        try {
+            let response,
+                responseData,
+                url
+                ,count;
+
+            count = 0 ;    
+
+            url = new URL('http://localhost:3004/Clientes');
+            const SETTINGS = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+            };
+
+            response = await fetch(url, SETTINGS);
+            responseData = await response.json();
+            for (let i in responseData ){
+                count = count + 1;
+
+            }
+            return count;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
    
 
 }

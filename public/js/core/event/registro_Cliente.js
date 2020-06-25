@@ -4,8 +4,7 @@ import { MessageAdd, MessageError, cleanFieldsClient } from '../global.js';
 
 /** Declaración objetos HTML de uso incidencia. */
 const buttonRegisterClient = document.querySelector('#registrarCliente');
-const buttonAddAddress = document.querySelector('#addDireccion');
-const idClient = document.querySelector('#id');
+// const idClient = document.querySelector('#id');
 
 
 /**
@@ -51,22 +50,22 @@ const addAddressService = async ({ service, data }) => {
  * @param {object} object / se espera atributos de service y data
  * @return {Promise} responseSearch
  */
-const searchClientIdService = async ({ service, param }) => {
-    try {
+// const searchClientIdService = async ({ service, param }) => {
+//     try {
 
-        const responseSearch = await service.SearchClientId(param);
-        if (responseSearch) {
-            return responseSearch;
-        } else {
-            throw "Error al utilizar busqueda de Cliente";
-        }
+//         const responseSearch = await service.SearchClientId(param);
+//         if (responseSearch) {
+//             return responseSearch;
+//         } else {
+//             throw "Error al utilizar busqueda de Cliente";
+//         }
 
-    } catch (error) {
-        console.error("Error : " + error);
-    }
+//     } catch (error) {
+//         console.error("Error : " + error);
+//     }
 
 
-}
+// }
 /**
  * Función para manejo de Datos de registro Cliente ( registrados por el usuario )
  * @returns data - retornará los datos del usuario una vez válidados
@@ -93,56 +92,56 @@ const dataClient = () => {
  *           comprobara si se agrega un nuevo cliente o un direccion a cliente existente.
  * 
  */
-const dataAddress = (page) => {
-    switch (page) {
-        case 'newClient':
-            const dataNewClient = {
-                idResidenciaUsuario: parseInt((Math.random() * 1000), 10),
-                direccion: document.getElementById('address').value,
-                ciudad: document.getElementById('city').value,
-                pais: document.getElementById('country').value,
-                departamento: document.getElementById('department').value,
-                idUsuario: document.getElementById('id').value
-            };
-            return dataNewClient
-        case 'addAddressClient':
-            const dataAddressPopUp = {
-                idResidenciaUsuario: parseInt((Math.random() * 1000), 10),
-                direccion: document.getElementById('addressAdd').value,
-                ciudad: document.getElementById('cityAdd').value,
-                pais: document.getElementById('countryAdd').value,
-                departamento: document.getElementById('departmentAdd').value,
-                idUsuario: document.getElementById('id').value
-            }
-            return dataAddressPopUp
-        default:
-            return null;
+// const dataAddress = (page) => {
+//     switch (page) {
+//         case 'newClient':
+//             const dataNewClient = {
+//                 idResidenciaUsuario: parseInt((Math.random() * 1000), 10),
+//                 direccion: document.getElementById('address').value,
+//                 ciudad: document.getElementById('city').value,
+//                 pais: document.getElementById('country').value,
+//                 departamento: document.getElementById('department').value,
+//                 idUsuario: document.getElementById('id').value
+//             };
+//             return dataNewClient
+//         case 'addAddressClient':
+//             const dataAddressPopUp = {
+//                 idResidenciaUsuario: parseInt((Math.random() * 1000), 10),
+//                 direccion: document.getElementById('addressAdd').value,
+//                 ciudad: document.getElementById('cityAdd').value,
+//                 pais: document.getElementById('countryAdd').value,
+//                 departamento: document.getElementById('departmentAdd').value,
+//                 idUsuario: document.getElementById('id').value
+//             }
+//             return dataAddressPopUp
+//         default:
+//             return null;
 
 
-    }
+//     }
 
 
-}
+// }
 
 
 /**
  * Función para integrar en los campos los datos del cliente encontrados
  * @param {object} client  
  */
-const fillClientData = (client) => {
-    client.then(data => {
-        for (let i in data) {
-            document.getElementById('tipoId').value = data[i].tipoId;
-            document.getElementById('name').value = data[i].nombreUsuario;
-            document.getElementById('lastName').value = data[i].apellidoUsuario;
-            document.getElementById('email').value = data[i].emailUsuario;
-            document.getElementById('phone').value = data[i].celularUsuario;
-            document.getElementById('landline').value = data[i].telefonoUsuario;
-            document.getElementById('gender').value = data[i].generoUsuario;
-        }
-    })
+// const fillClientData = (client) => {
+//     client.then(data => {
+//         for (let i in data) {
+//             document.getElementById('tipoId').value = data[i].tipoId;
+//             document.getElementById('name').value = data[i].nombreUsuario;
+//             document.getElementById('lastName').value = data[i].apellidoUsuario;
+//             document.getElementById('email').value = data[i].emailUsuario;
+//             document.getElementById('phone').value = data[i].celularUsuario;
+//             document.getElementById('landline').value = data[i].telefonoUsuario;
+//             document.getElementById('gender').value = data[i].generoUsuario;
+//         }
+//     })
 
-}
+// }
 
 /**
  * Función para limpiar los campos si no se encuentran datos del cliente
@@ -163,42 +162,44 @@ buttonRegisterClient.addEventListener('click', () => {
         service: new Services('client'),
         data: dataClient()
     }
-    const paramsAddress = {
-        service: new Services('address'),
-        data: dataAddress('newClient')
-    }
+   // const paramsAddress = {
+     //   service: new Services('address'),
+       // data: dataAddress('newClient')
+    //}
     // Uso función de consumo servicio incidente
     addClientService(paramsClient);
-    addAddressService(paramsAddress);
+    //addAddressService(paramsAddress);
 });
 
+
 /**CAPTURA DE EVENTO CLICK DE DIRECCION PARA CLIENTES REGISTRADOS */
-buttonAddAddress.addEventListener('click', () => {
-    const paramsAddress = {
-        service: new Services('address'),
-        data: dataAddress('addAddressClient')
-    }
+//buttonAddAddress.addEventListener('click', () => {
+  //  const paramsAddress = {
+    //    service: new Services('address'),
+      ///  data: dataAddress('addAddressClient')
+    //}
     // Uso función de consumo servicio  direccion
-    addAddressService(paramsAddress);
-})
+    //addAddressService(paramsAddress);
+//})
 
 /**CAPTURA DE EVENTO CAMBIO DE EL CAMPO DOCUMENTO PARA  TRAER DATOS SI ES UN CLIENTE EXISTENTE */
-idClient.addEventListener('change', () => {
-    const PARAM = document.getElementById('id').value;
-    if (PARAM == "") {
-        CleanfieldsChangeClient();
-    } else {
-        try {
-            const paramsClient = {
-                service: new Services('client'),
-                param: PARAM
+// idClient.addEventListener('change', () => {
+//     const PARAM = document.getElementById('id').value;
+//     if (PARAM == "") {
+//         CleanfieldsChangeClient();
+//     } else {
+//         try {
+//             const paramsClient = {
+//                 service: new Services('client'),
+//                 param: PARAM
 
-            }
-            const client = searchClientIdService(paramsClient);
-            fillClientData(client);
-        } catch (error) {
-            MessageError();
-            console.error("Error : " + error);
-        }
-    }
-})
+//             }
+//             const client = searchClientIdService(paramsClient);
+//             fillClientData(client);
+//         } catch (error) {
+//             MessageError();
+//             console.error("Error : " + error);
+//         }
+//     }
+// })
+

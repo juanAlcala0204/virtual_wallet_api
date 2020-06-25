@@ -10,7 +10,7 @@
     <!-- IMPORT FILES GLOBALS -->
     <%- include('components/head_global.html') %>
     <!---------------------JS Global------------------------->
-    <script type="text/javascript" src="/js/core/event/index.js" defer></script>
+    <script type="module" src="/js/core/event/index.js" defer></script>
     <!-- *********************************************** FINISH CALL TO SCRIPTS **************************************************** -->
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -36,14 +36,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3 id  = "incidentesRecibidos">150</h3>
 
-                <p>Nuevas Peticiones</p>
+                <p>Incidentes </p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/historialIncidencia" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -51,7 +51,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3 id = "estadisticasRegistradas">53<sup style="font-size: 20px">%</sup></h3>
 
                 <p>Estadisticas</p>
               </div>
@@ -66,14 +66,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3 id = "clientesRegistrados">44</h3>
 
                 <p>Clientes registrados</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/historialCliente" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -81,14 +81,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3 id  = "historialRegistrado">65</h3>
 
                 <p>Historial</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/historialIncidencia" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -103,18 +103,8 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
-                  To Do List
+                   Lista de por hacer 
                 </h3>
-
-                <div class="card-tools">
-                  <ul class="pagination pagination-sm">
-                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                  </ul>
-                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -131,26 +121,9 @@
                       <label for="todoCheck1"></label>
                     </div>
                     <!-- todo text -->
-                    <span class="text">Design a nice theme</span>
+                    <span class="text">Al solucionar los incidentes tener presente finalizar el estado</span>
                     <!-- Emphasis label -->
-                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
                     <!-- General tools such as edit or delete-->
-                    <div class="tools">
-                      <i class="fas fa-edit"></i>
-                      <i class="fas fa-trash-o"></i>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="handle">
-                      <i class="fas fa-ellipsis-v"></i>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </span>
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-                      <label for="todoCheck2"></label>
-                    </div>
-                    <span class="text">Make the theme responsive</span>
-                    <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -165,8 +138,7 @@
                       <input type="checkbox" value="" name="todo3" id="todoCheck3">
                       <label for="todoCheck3"></label>
                     </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
+                    <span class="text">No dejar un caso recibido siempre darle solución o escalar</span>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -178,11 +150,11 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </span>
                     <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                      <label for="todoCheck4"></label>
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
                     </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
+                    <span class="text" >confirmar al escalar un incidente </span>
+                    
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -194,11 +166,11 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </span>
                     <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                      <label for="todoCheck5"></label>
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
                     </div>
-                    <span class="text">Check your messages and notifications</span>
-                    <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
+                    <span class="text">Al terminar la jornada cerrar la sesión</span>
+                    <small class="badge badge-warning"><i class="far fa-clock"></i> Importante</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -210,22 +182,37 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </span>
                     <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                      <label for="todoCheck6"></label>
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
                     </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
+                    <span class="text">No responder de forma tan tecnica </span>
+                    
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
                     </div>
                   </li>
+                  <li>
+                    <span class="handle">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                      <label for="todoCheck3"></label>
+                    </div>
+                    <span class="text">Respeto por el usuario </span>
+                    <small class="badge badge-danger"><i class="far fa-clock"></i> Importante</small>
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash-o"></i>
+                    </div>
+                  </li>
+                  
                 </ul>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
-              </div>
+
             </div>
             <!-- /.card -->
           </section>
@@ -238,32 +225,25 @@
 									<div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch">
 										<div class="card bg-light">
 											<div class="card-header text-muted border-bottom-0">
-												Digital Strategist
+												Perfil
 											</div>
 											<div class="card-body pt-0">
 												<div class="row">
 													<div class="col-7">
-														<h2 class="lead"><b>Nicole Pearson</b></h2>
-														<p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+														<h2 class="lead" id = "fullName"><b>Nicole Pearson</b></h2>
+														<p class="text-muted text-sm" id = "tipoTecnico">Tecnico </p>
 														<ul class="ml-4 mb-0 fa-ul text-muted">
-															<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-															<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+															<li class="small" id = "email"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Correo:</li>
+															<li class="small" id =  "phone"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone : </li>
 														</ul>
 													</div>
 													<div class="col-5 text-center">
-														<img src="img/adminlte/user1-128x128.jpg" alt="" class="img-circle img-fluid">
+														<img src="img/adminlte/perfil_hombre.jpg" alt="" class="img-circle img-fluid">
 													</div>
 												</div>
 											</div>
-											<div class="card-footer">
-												<div class="text-right">
-													<a href="#" class="btn btn-sm bg-teal">
-														<i class="fas fa-comments"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="fas fa-user"></i> View Profile
-													</a>
-												</div>
+											<div class="card-footer" style = "background-color: #c3c3c3 ;">
+                        <br>
 											</div>
 										</div>
 									</div>
@@ -275,7 +255,7 @@
 												<h3 class="card-title">Primary Card Example</h3>
 											</div> -->
 											<div class="card-body" style="background-color: #f8f9fa;">
-                        <button class="btn botonPersonalizado btn-block btn-primary animated pulse" style="background-color: #4A7023; border-color: #4A7023"><a href="./pages/registro_incidencia.html" style="color: #ffffff;">Nueva Incidencia</a></button>
+                        <button class="btn botonPersonalizado btn-block btn-primary animated pulse" style="background-color: #4A7023; border-color: #4A7023"><a href="/registrarIncidencia" style="color: #ffffff;">Nueva Incidencia</a></button>
 											</div>
 								
 										</div>
